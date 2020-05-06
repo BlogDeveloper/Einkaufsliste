@@ -39,15 +39,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ShowAddDialog();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Save save = new Save(this, "shopping_list.csv");
+        save.ListWrite(shopping_list);
+    }
+
     public void ShowAddDialog() {
 
         // Инициализация диалога.
         View dialog = getLayoutInflater().inflate(R.layout.dialog_add, null);
 
-        // Инициализация EditText
+        // Инициализация EditText.
         EditText product = (EditText) dialog.findViewById(R.id.dialog_product);
 
-        // Инициализация Alert Builder
+        // Инициализация Alert Builder.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setView(dialog);
@@ -59,13 +67,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // Перепускает в основном потоке массив
             adapter.notifyDataSetChanged();
-
         });
 
-        // Создает диалог
+        // Создает диалог.
         builder.create();
 
-        // Выводит на экран диалог
+        // Выводит на экран диалог.
         builder.show();
     }
 }
