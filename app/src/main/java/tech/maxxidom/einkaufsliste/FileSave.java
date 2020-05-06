@@ -36,34 +36,6 @@ public class FileSave {
         }
     }
 
-    public void ListWriteToCsvFile(List<Product> list, String filename) {
-
-        setFile(filename);
-
-        try {
-//            FileOutputStream fileOutputStream = new FileOutputStream(file);
-//            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, "utf-8");
-//
-//            for (Product product: list) {
-//                outputStreamWriter.write(product.toCSV());
-//            }
-//
-//            outputStreamWriter.close();
-//            fileOutputStream.close();
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
-
-            for (Product product: list) {
-                out.append(product.toCSV());
-            }
-
-            out.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void setFile(String filename) {
         file = new File(context.getExternalFilesDir(null), filename);
     }
