@@ -11,11 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class ShoppingListAdapter extends ArrayAdapter<Product> {
 
     private ArrayList<Product> shopping_list;
+
+    // Сет для хранения номеров выбранных элементов
+    private HashSet<Integer> selection = new HashSet<>();
 
     public ShoppingListAdapter(@NonNull Context context, int resource, ArrayList<Product> shopping_list) {
         super(context, resource);
@@ -36,7 +40,7 @@ public class ShoppingListAdapter extends ArrayAdapter<Product> {
 
         convertView = inflater.inflate(R.layout.item, parent, false);
 
-        Product product =  shopping_list.get(position);
+        Product product = shopping_list.get(position);
 
         TextView list_item_product = convertView.findViewById(R.id.list_item_product);
         list_item_product.setText(product.getName());
@@ -47,4 +51,5 @@ public class ShoppingListAdapter extends ArrayAdapter<Product> {
     private void setShopping_list(ArrayList<Product> shopping_list) {
         this.shopping_list = shopping_list;
     }
+
 }

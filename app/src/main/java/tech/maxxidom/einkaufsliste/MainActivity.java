@@ -5,14 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private ArrayList<Product> shopping_list = new ArrayList<>();
     private ShoppingListAdapter adapter;
@@ -33,14 +36,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new ShoppingListAdapter(this, R.layout.item, shopping_list);
         list.setAdapter(adapter);
 
+        list.setOnItemClickListener(this);
+
         // Float Button
         FloatingActionButton btnAdd = findViewById(R.id.btn_add);
         btnAdd.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        ShowAddDialog();
     }
 
     @Override
@@ -49,8 +49,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FileSave save_list = new FileSave(this);
         save_list.ListWriteToTextFile(shopping_list, FILE_NAME);
-        //save_list.ListWriteToCsvFile(shopping_list, FILE_NAME);
     }
+
+    @Override
+    public void onClick(View v) {
+        ShowAddDialog();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Product product = shopping_list.get(position);
+        ShowDialogDelete(product.getName(), position);
+    }
+
+    private void ShowDialogDelete(String productname, int position) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("re you sure you want to delete?" + productname);
+        builder.setPositiveButton("Delete", (dialog1, which) -> {
+            shopping_list.remove(position);
+            adapter.notifyDataSetChanged();
+
+            Toast.makeText(this, "Deleted: "+ productname, Toast.LENGTH_SHORT).show();
+        });
+        builder.create();
+        builder.show();
+    }
+
 
     private void ShowAddDialog() {
 

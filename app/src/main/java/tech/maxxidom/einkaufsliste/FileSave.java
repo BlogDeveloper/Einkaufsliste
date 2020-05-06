@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 
-public class FileSave {
+class FileSave {
 
     private File file;
     private Context context;
