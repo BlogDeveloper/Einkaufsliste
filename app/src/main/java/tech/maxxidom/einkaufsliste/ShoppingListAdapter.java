@@ -10,13 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class ShoppingListAdapter extends ArrayAdapter<Product> {
 
-    private List<Product> shopping_list;
+    private ArrayList<Product> shopping_list;
 
-    public ShoppingListAdapter(@NonNull Context context, int resource, List<Product> shopping_list) {
+    public ShoppingListAdapter(@NonNull Context context, int resource, ArrayList<Product> shopping_list) {
         super(context, resource);
         setShopping_list(shopping_list);
     }
@@ -43,7 +44,7 @@ public class ShoppingListAdapter extends ArrayAdapter<Product> {
         return convertView;
     }
 
-    private void setShopping_list(List<Product> shopping_list) {
+    private void setShopping_list(ArrayList<Product> shopping_list) {
         this.shopping_list = shopping_list;
     }
 }

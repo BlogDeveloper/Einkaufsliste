@@ -9,23 +9,27 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ListView list;
-    private List<Product> shopping_list = new ArrayList<>();
+    private ArrayList<Product> shopping_list = new ArrayList<>();
     private ShoppingListAdapter adapter;
+
+    private final static String FILE_NAME = "shopping_list.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // File Load
+        FileLoad lsp = new FileLoad(this, FILE_NAME);
+        shopping_list = lsp.getArrayList();
+
         // Einkaufsliste
-        list = findViewById(R.id.list_product);
+        ListView list = findViewById(R.id.list_product);
         adapter = new ShoppingListAdapter(this, R.layout.item, shopping_list);
         list.setAdapter(adapter);
 
@@ -43,11 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStop() {
         super.onStop();
 
-        Save save = new Save(this, "shopping_list.csv");
-        save.ListWrite(shopping_list);
+        FileSave save_list = new FileSave(this);
+        save_list.ListWriteToTextFile(shopping_list, FILE_NAME);
+        //save_list.ListWriteToCsvFile(shopping_list, FILE_NAME);
     }
 
-    public void ShowAddDialog() {
+    private void ShowAddDialog() {
 
         // Инициализация диалога.
         View dialog = getLayoutInflater().inflate(R.layout.dialog_add, null);
