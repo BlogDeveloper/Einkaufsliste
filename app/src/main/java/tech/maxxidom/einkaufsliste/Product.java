@@ -1,4 +1,4 @@
-package tech;
+package tech.maxxidom.einkaufsliste;
 
 public class Product {
 

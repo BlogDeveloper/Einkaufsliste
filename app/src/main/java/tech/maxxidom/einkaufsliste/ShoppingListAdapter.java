@@ -12,8 +12,6 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import tech.Product;
-
 public class ShoppingListAdapter extends ArrayAdapter<Product> {
 
     private List<Product> shopping_list;

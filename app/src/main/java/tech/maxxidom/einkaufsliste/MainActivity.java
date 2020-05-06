@@ -13,8 +13,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-import tech.Product;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ListView list;
